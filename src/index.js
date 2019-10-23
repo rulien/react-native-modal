@@ -3,7 +3,6 @@ import {
   Animated,
   DeviceEventEmitter,
   Dimensions,
-  KeyboardAvoidingView,
   Modal,
   PanResponder,
   Platform,
@@ -27,7 +26,6 @@ class ReactNativeModal extends Component {
     animationInTiming: PropTypes.number,
     animationOut: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     animationOutTiming: PropTypes.number,
-    avoidKeyboard: PropTypes.bool,
     coverScreen: PropTypes.bool,
     hasBackdrop: PropTypes.bool,
     backdropColor: PropTypes.string,
@@ -78,7 +76,6 @@ class ReactNativeModal extends Component {
     animationInTiming: 300,
     animationOut: 'slideOutDown',
     animationOutTiming: 300,
-    avoidKeyboard: false,
     coverScreen: true,
     hasBackdrop: true,
     backdropColor: 'black',
@@ -538,7 +535,6 @@ class ReactNativeModal extends Component {
       animationInTiming,
       animationOut,
       animationOutTiming,
-      avoidKeyboard,
       coverScreen,
       hasBackdrop,
       backdropColor,
@@ -655,17 +651,7 @@ class ReactNativeModal extends Component {
         onRequestClose={onBackButtonPress}
         {...otherProps}>
         {hasBackdrop && backdrop}
-
-        {avoidKeyboard && (
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : null}
-            pointerEvents="box-none"
-            style={computedStyle.concat([{margin: 0}])}>
-            {containerView}
-          </KeyboardAvoidingView>
-        )}
-
-        {!avoidKeyboard && containerView}
+        {containerView}
       </Modal>
     );
   }
